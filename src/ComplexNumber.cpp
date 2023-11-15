@@ -106,7 +106,8 @@ ComplexNumber ComplexNumber::operator/(const ComplexNumber& C) const
 		return ComplexNumber(r, i);
 	}
 	else {
-		std::cout << "Error: Division by ";
+		std::cout << "Error: Division by 0!\n";
+		std::cout << "The result has been set to zero. \n";
 		return C;
 	}
 }
@@ -157,8 +158,10 @@ ComplexNumber& ComplexNumber::operator/=(const ComplexNumber& C)
 		return *(this);
 	}
 	else {
-		std::cerr << "Error: Division by ";
+
 		setReal(0); setImaginary(0); // This sets the sent Complex Number to 0!
+		std::cerr << "Error: Division by 0!\n";
+		std::cout << "The result has been set to zero. \n";
 		return *(this);
 	}
 }
