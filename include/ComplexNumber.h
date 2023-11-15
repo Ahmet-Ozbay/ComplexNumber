@@ -1,7 +1,8 @@
 #ifndef COMPLEXNUMBER_H
 #define COMPLEXNUMBER_H
-#include <cstddef>
+
 #include <iostream>
+
 class ComplexNumber
 {
 private:
@@ -50,5 +51,4 @@ public:
 	void printComplexNumber() const;
 	std::size_t size() const;
 };
-
 #endif

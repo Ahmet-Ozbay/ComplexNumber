@@ -1,5 +1,4 @@
-#include "ComplexNumber.h"
-#include <iomanip>
+#include "../include/ComplexNumber.h"
 
 // Constructor
 ComplexNumber::ComplexNumber(double _real, double _imaginary) : real(_real), imaginary(_imaginary) {}
@@ -95,10 +94,7 @@ ComplexNumber ComplexNumber::operator*(const ComplexNumber& C) const
 // Returns 0 in case of division by zero
 ComplexNumber ComplexNumber::operator/(const ComplexNumber& C) const
 {
-	ComplexNumber C0(0, 0);
-
-
-	if(C != C0){
+	if(!C.isZero()){
 		double a, b, c, d;
 		a = real;
 		b = imaginary;
@@ -155,7 +151,7 @@ ComplexNumber& ComplexNumber::operator*=(const ComplexNumber& C)
 // Modifies the left-hand-side complex number as the result of the division, and returns the complex number
 ComplexNumber& ComplexNumber::operator/=(const ComplexNumber& C)
 {
-	if(C.real != 0 && C.imaginary != 0){
+	if(!C.isZero()){
 		real /= C.real;
 		imaginary /= C.imaginary;
 		return *(this);
