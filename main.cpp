@@ -1,84 +1,186 @@
-﻿#include "ComplexNumber.h"
+﻿#include "include/ComplexNumber.h"
+#include <iomanip>
 #include <string>
+#include <sstream>
 
 using namespace std;
-int main()
-{
-	ComplexNumber C0;
-	ComplexNumber C1(10, -2);
-	ComplexNumber C2(-20, -5);
-	ComplexNumber C3(C1);
-	ComplexNumber C4(C2);
-	ComplexNumber C5(C1);
-	ComplexNumber C6;
+void displayMenu() {
+    cout << "\nMenu:\n";
+    cout << "1. Display Complex Numbers\n";
+    cout << "2. Perform Arithmetic Operations\n";
+    cout << "3. Calculate Conjugate\n";
+    cout << "4. Compare Complex Numbers\n";
+    cout << "5. Increment and Decrement\n";
+    cout << "6. Calculate Modulus\n";
+    cout << "7. Exit\n";
+}
 
-	cout << "C1: "; C1.printComplexNumber(); cout << endl;
-	cout << "C2: "; C2.printComplexNumber(); cout << endl << endl;
+ComplexNumber promptUser(ComplexNumber& A) {
+    cout << "Enter complex number (Ex: -4.2 2.6): ";
+    cin >> A;
 
-	cout << "C1.real = " << C1.getReal() << endl;
-	cout << "C1.imaginary = " << C1.getImaginary() << endl;
-	cout << "C2.real = " << C2.getReal() << endl;
-	cout << "C2.imaginary = " << C2.getImaginary() << endl << endl;
+    return A;
+}
 
-	cout << "C1 + C2 = "; (C1 + C2).printComplexNumber(); cout << endl;
-	cout << "C1 - C2 = "; (C1 - C2).printComplexNumber(); cout << endl;
-	cout << "C1 * C2 = "; (C1 * C2).printComplexNumber(); cout << endl;
-	cout << "C1 / C2 = "; (C1 / C2).printComplexNumber(); cout << endl << endl;
+int main() {
+    ComplexNumber C0, C1, C2, C3;
+    int choice;
+    const int w = 14;
+    const int w2 = 10;
+    char c = 'Y';
 
-	cout << "Modulus of C1 = " << C1.modulus() << endl;
-	cout << "Modulus of C2 = " << C2.modulus() << endl;
+    do {
+        cout << "******** COMPLEX NUMBERS ********";
+        displayMenu();
+        cout << "Enter your choice: ";
 
-	cout << "C1 > C2 : " << ((C1 > C2) ? "true" : "false") << endl;
-	cout << "C1 < C2 : " << ((C1 < C2) ? "true" : "false") << endl << endl;
+        // Use a do-while loop to continuously prompt the user until valid input is entered
+        do {
+            if (!(cin >> choice) || (choice != 7 && (choice < 1 || choice > 6))) {
+                cout << "Invalid input. Please enter a valid menu option.\n";
 
-	cout << "Copy of C1 (C3): "; C3.printComplexNumber(); cout << endl;
-	cout << "C1 >= C2 : " << ((C1 >= C2) ? "true" : "false") << endl;
-	cout << "C1 <= C2 : " << ((C1 <= C2) ? "true" : "false") << endl; 
-	cout << "C1 <= C3 : " << ((C1 <= C3) ? "true" : "false") << endl;
-	cout << "C1 >= C3 : " << ((C1 >= C3) ? "true" : "false") << endl << endl;
+                // Clear any remaining characters in the input buffer
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	cout << "Copy of C1 (C3): "; C3.printComplexNumber(); cout << "		| Used copy constructor on C1 to duplicate it." << endl;
-	cout << "C3 += C2 = "; (C3 += C2).printComplexNumber(); cout << endl;
-	cout << "C3 = "; C3.printComplexNumber(); cout << endl << endl;
+                cout << "Enter your choice: ";
+            }
+        } while (choice != 7 && (choice < 1 || choice > 6));
 
-	cout << "Copy of C2 (C4): "; C4.printComplexNumber(); cout << "		| Used copy constructor on C2 to duplicate it." << endl;
-	cout << "C2 -= C1 = "; (C4 -= C1).printComplexNumber(); cout << endl;
-	cout << "C4 = "; C4.printComplexNumber(); cout << endl << endl;
+        switch (choice) {
+        case 1:
+            promptUser(C1);
+            promptUser(C2);
+            cout << "C1: " << C1 << endl;
+            cout << "C2: " << C2 << endl;
+            break;
 
-	cout << "C3 *= C4 = "; (C3 *= C4).printComplexNumber(); cout << endl;
-	cout << "C3 = "; C3.printComplexNumber(); cout << endl << endl;
+        case 2:
+            cout << "\n--- Arithmetic Operations ---\n";
+            cout << "1. Addition (C1 + C2)\n";
+            cout << "2. Subtraction (C1 - C2)\n";
+            cout << "3. Multiplication (C1 * C2)\n";
+            cout << "4. Division (C1 / C2)\n";
+            cout << "\nEnter operation choice: ";
+            cin >> choice;
 
-	cout << "C6 = C4 = "; (C6 = C4).printComplexNumber(); cout << "		| Used assign operator to set C6's value equal to C4." << endl;
-	cout << "C0: "; C0.printComplexNumber(); cout << endl;
-	cout << "C6 /= C0 = "; (C6 /= C0).printComplexNumber(); cout << endl;
-	cout << "C6 = "; C6.printComplexNumber(); cout << "		| After division by zero, C6 has been set to zero." << endl << endl;
+           
+            cout << "C1: " << C1 << " | C2: " << C2 << endl;
+            cout << "Would you like to enter new Complex Numbers? (Y/N): ";
+            cin >> c;
 
-	cout << "C4: "; C4.printComplexNumber(); cout << endl;
-	cout << "C4 /= C1 = "; (C4 /= C1).printComplexNumber(); cout << endl;
-	cout << "C4: "; C4.printComplexNumber(); cout << endl << endl;
+               
+            if (c == 'Y' || c == 'y') {
+                promptUser(C1);
+                promptUser(C2);
+            }
 
-	cout << "C4++ = "; C4++.printComplexNumber(); cout << endl;
-	cout << "C4-- = "; C4--.printComplexNumber(); cout << endl << endl;
+            switch (choice)
+            {
+            case 1:
+                cout << "C1 + C2 = " << (C1 + C2) << endl;
+                break;
+            case 2:
+                cout << "C1 - C2 = " << (C1 - C2) << endl;
+                break;
+            case 3:
+                cout << "C1 * C2 = " << (C1 * C2) << endl;
+                break;
+            case 4:
+                cout << "C1 / C2 = " << (C1 / C2) << endl;
+                break;
+            default:
+                cout << "Invalid choice\n";
+                break;
+            }
 
-	cout << "C0 ?= 0 : " << ((C0.isZero()) ? "true" : "false") << endl;
-	cout << "C1 ?= 0 : " << ((C1.isZero()) ? "true" : "false") << endl << endl;
+            break;
 
-	ComplexNumber C7(1, 1);
+        case 3:
+            cout << "\n--- Conjugate Finder ---\n";
+            promptUser(C3);
 
-	// Can use dot operator consecutively.
-	C7.setReal(2).setImaginary(2).printComplexNumber(); cout << endl;
-	cout << "Size of C7: " << C7.size() << endl << endl;
+            cout << "Conjugate of (" << C3 << ") is: " << C3.getConjugate() << endl;
+            break;
 
-	cout << "C1: " << C1 << " C2: " << C2 << " C3: " << C3 << " C4: " << C4 << " C5: " << C5 << " C6: " << C6 << " C7: " << C7 << endl << endl;
+        case 4:
+            cout << "\n--- Compare Complex Numbers ---\n";
+            cout << "C1: " << C1 << " | C2: " << C2 << endl;
+            cout << "Would you like to enter new Complex Numbers? (Y/N): ";
+            cin >> c;
 
-	ComplexNumber C8;
-	cout << "Enter Complex Number (Real Imaginary): ";
-	cin >> C8;
-	cout << C8 << endl;
-	cout << "C8 imaginary: " << C8.getImaginary() << endl << endl;
+            if (c == 'Y' || c == 'y') {
+                promptUser(C1);
+                promptUser(C2);
+            }
+            cout << endl;
+            cout << right << setw(w) << "Comparison" << setw(2) <<"|" << "  Result" << endl;
+            cout << right << setw(w) << "C1 == C2" << setw(2) << ":" << left << setw(w2) << ((C1 == C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 != C2" << setw(2) << ":" << left << setw(w2) << ((C1 != C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 > C2" << setw(2) << ":" << left << setw(w2) << ((C1 > C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 < C2" << setw(2) << ":" << left << setw(w2) << ((C1 < C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 >= C2" << setw(2) << ":" << left << setw(w2) << ((C1 >= C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 <= C2" << setw(2) << ":" << left << setw(w2) << ((C1 <= C2) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C1 ?= 0" << setw(2) << ":" << left << setw(w2) << ((C1.isZero()) ? "  true" : "  false") << endl;
+            cout << right << setw(w) << "C2 ?= 0" << setw(2) << ":" << left << setw(w2) << ((C2.isZero()) ? "  true" : "  false") << endl;
 
-	ComplexNumber C9 = C8.getConjugate();
-	cout << "Conjugate of " << C8 << " is " << C9 << endl;
+            break;
 
-	return 0;
+        case 5:
+            cout << "\n--- Increment & Decrement ---\n";
+            cout << "1. C1++\n";
+            cout << "2. ++C1\n";
+            cout << "3. C1--\n";
+            cout << "4. --C1\n\n";
+
+            cout << "Current Value of C1: " << C1 << endl;
+            cout << "Would you like to enter a new Complex Number? (Y/N): ";
+            cin >> c;
+
+            if (c == 'Y' || c == 'y') {
+                promptUser(C1);
+            }
+            cout << "Enter operation choice: ";
+            cin >> choice;
+            
+            cout << "Current Value of C1: " << C1 << endl;
+            if (choice == 1) {
+                C1++;
+                cout << "After incrementing C1: " << C1 << endl;
+            }
+            else if (choice == 2) {
+                ++C1;
+                cout << "After incrementing C1: " << C1 << endl;
+            }
+            else if (choice == 3) {
+                C2--;
+                cout << "After decrementing C2: " << C2 << endl;
+            }
+            else if (choice == 4) {
+                --C2;
+                cout << "After decrementing C1: " << C1 << endl;
+
+            }
+            else {
+                cout << "Invalid choice\n";
+            }
+            break;
+
+        case 6:
+            cout << "\n--- Modulus Calculator ---\n";
+            promptUser(C1);
+            cout << "Modulus of (" << C1 << ")= " << C1.modulus() << endl;
+            break;
+
+        case 7:
+            cout << "Exiting program...\n";
+            break;
+
+        default:
+            cout << "Invalid choice\n";
+        }
+
+    } while (choice != 7);
+
+    return 0;
 }
