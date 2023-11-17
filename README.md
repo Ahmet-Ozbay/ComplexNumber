@@ -49,4 +49,4 @@ This C++ program defines a ComplexNumber class that represents complex numbers. 
 - `main.cpp`: Main program file
 
 ## Author ##
-- Ahmet Ozbay
+- A. Ozbay
